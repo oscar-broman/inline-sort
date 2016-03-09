@@ -91,8 +91,40 @@ comparison_done:
 		MergeSortBUImpl(_:%1, sizeof(%1), _buf, _initial, _sz, _lo, _mid, _hi, _i, _j, _k, _:%3, _:%4, %2); \
 	)
 
-#define sortPartInline%1%0(%5)=>%0(%2=%3>%4) \
+#define sortPartInline%1(%5)%0=>%0(%2=%3>%4) \
 	for ( \
 		new _buf[sizeof(%1)], _initial = true, _sz, _lo, _mid, _hi, _i, _j, _k, %3, %4, bool:%2; \
 		MergeSortBUImpl(_:%1, %5, _buf, _initial, _sz, _lo, _mid, _hi, _i, _j, _k, _:%3, _:%4, %2); \
 	)
+
+#define sortPlayersInline%0\32;%1=>%0(%2=%3>%4) \
+	sortPartInline %1 (c_%1) => (%2 = %3 > %4)
+
+stock PreparePlayerArray(array[], bool:npc, size = sizeof(array))
+{
+	new m = min(GetPlayerPoolSize() + 1, size);
+	new j = 0;
+	new count = 0;
+	
+	for (new i = 0; i < m; i++) if (IsPlayerConnected(i) && (npc || !IsPlayerNPC(i))) {
+		array[j++] = i;
+		count++;
+	}
+	
+	while (j < size) {
+		array[j++] = INVALID_PLAYER_ID;
+	}
+	
+	return count;
+}
+
+#define PlayerArray%0<%1> \
+	%1[MAX_PLAYERS], \
+	c_%1 = PreparePlayerArray(%1, false)
+
+#define PlayerArrayWithNPC%0<%1> \
+	%1[MAX_PLAYERS], \
+	c_%1 = PreparePlayerArray(%1, true)
+
+#define forPlayerArray%0(%1=>%2) \
+	for (new %2_i = 0, %2; %2_i < c_%1 && (%2 = %1[%2_i]) != INVALID_PLAYER_ID; %2_i++)
