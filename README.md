@@ -19,7 +19,29 @@ sortInline array => (R = left > right) {
   * `R` should be `true` if `left > right`
   * `R` should be `false` if `right >= left`
 
-## Example
+## Examples
+
+This simple example uses helpers aimed specifically at sorting players. It's both concise and efficient.
+
+```sourcepawn
+new g_Money[MAX_PLAYERS];
+
+public OnSomething()
+{
+	// Sort all players based on the value in g_Money
+	new PlayerArray<top_money>;
+	
+	sortPlayersInline top_money => (R = l > r) {
+		R = g_Money[l] > g_Money[r];
+	}
+	
+	forPlayerArray (top_money => playerid) {
+		printf("%d has $%d", playerid, g_Money[playerid]);
+	}
+}
+```
+
+This is a more complex example, to show the flexibility of this include.
 
 ```sourcepawn
 #define MAX_PLAYERS 20
