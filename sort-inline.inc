@@ -87,14 +87,14 @@ comparison_done:
 
 #define sortInline%1=>%0(%2=%3>%4) \
 	for ( \
-		new _buf[sizeof(%1)], _initial = true, _sz, _lo, _mid, _hi, _i, _j, _k, %3, %4, bool:%2; \
-		MergeSortBUImpl(_:%1, sizeof(%1), _buf, _initial, _sz, _lo, _mid, _hi, _i, _j, _k, _:%3, _:%4, %2); \
+		new _buf[sizeof(%1)], _initial = true, _sz, _lo, _mid, _hi, _si_i, _si_j, _si_k, %3, %4, bool:%2; \
+		MergeSortBUImpl(_:%1, sizeof(%1), _buf, _initial, _sz, _lo, _mid, _hi, _si_i, _si_j, _si_k, _:%3, _:%4, %2); \
 	)
 
 #define sortPartInline%1(%5)%0=>%0(%2=%3>%4) \
 	for ( \
-		new _buf[sizeof(%1)], _initial = true, _sz, _lo, _mid, _hi, _i, _j, _k, %3, %4, bool:%2; \
-		MergeSortBUImpl(_:%1, %5, _buf, _initial, _sz, _lo, _mid, _hi, _i, _j, _k, _:%3, _:%4, %2); \
+		new _buf[sizeof(%1)], _initial = true, _sz, _lo, _mid, _hi, _si_i, _si_j, _si_k, %3, %4, bool:%2; \
+		MergeSortBUImpl(_:%1, %5, _buf, _initial, _sz, _lo, _mid, _hi, _si_i, _si_j, _si_k, _:%3, _:%4, %2); \
 	)
 
 #define sortPlayersInline%0\32;%1=>%0(%2=%3>%4) \
