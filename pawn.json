@@ -1,0 +1,5 @@
+{
+    "user": "oscar-broman",
+    "repo": "samp-inline-sort",
+    "dependencies": ["sampctl/samp-stdlib"]
+}
